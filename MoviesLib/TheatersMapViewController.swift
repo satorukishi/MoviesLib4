@@ -27,7 +27,8 @@ class TheatersMapViewController: UIViewController {
         
         mapView.delegate = self
         
-        loadXML()
+//        loadXML()
+        showAddress("MASP")
         
         requestUserLocationAuthorization()
     }
@@ -36,6 +37,25 @@ class TheatersMapViewController: UIViewController {
     /// Recupera a rota entre a localização do usuário e o destino escolhido
     ///
     /// - Parameter destination: objeto CLLocationCoordinate2D contendo o destino
+    func showAddress(_ address: String) {
+        let geoCoder = CLGeocoder()
+        geoCoder.geocodeAddressString(address) { (placemarks, error) in
+            if error == nil {
+                guard let placemarks = placemarks else {return}
+                guard let placemark = placemarks.first else {return}
+                guard let coordinate = placemark.location?.coordinate else {return}
+                
+                let annotation = MKPointAnnotation()
+                annotation.title = placemark.postalCode ?? "---"
+                annotation.coordinate = coordinate
+                self.mapView.addAnnotation(annotation)
+                
+                let region = MKCoordinateRegionMakeWithDistance(coordinate, 400, 400)
+                self.mapView.setRegion(region, animated: true)
+            }
+        }
+    }
+    
     func getRoute(destination: CLLocationCoordinate2D) {
         let request = MKDirectionsRequest()
         request.destination = MKMapItem(placemark: MKPlacemark(coordinate: destination))

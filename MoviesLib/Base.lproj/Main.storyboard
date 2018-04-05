@@ -302,8 +302,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DXr-7n-BUx">
-                                <rect key="frame" x="0.0" y="20" width="320" height="504"/>
+                                <rect key="frame" x="0.0" y="50" width="320" height="474"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <outlet property="delegate" destination="pKq-Rl-opa" id="6sq-vS-ww0"/>
+                                </connections>
                             </webView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l2k-s6-7oO">
                                 <rect key="frame" x="0.0" y="524" width="320" height="44"/>
@@ -317,7 +320,11 @@
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="jLR-mn-whw"/>
-                                    <barButtonItem title="Executar JS" id="G0Z-Ml-NpK"/>
+                                    <barButtonItem title="Executar JS" id="G0Z-Ml-NpK">
+                                        <connections>
+                                            <action selector="runJS:" destination="pKq-Rl-opa" id="w34-ja-NYz"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="dOW-Xx-oYv"/>
                                     <barButtonItem systemItem="fastForward" id="aiH-11-gVG">
                                         <connections>
@@ -326,19 +333,40 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Ns7-It-Bx5">
+                                <rect key="frame" x="142" y="268.5" width="37" height="37"/>
+                                <color key="color" red="1" green="0.80784313730000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </activityIndicatorView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="plI-wK-2uF">
+                                <rect key="frame" x="16" y="20" width="62" height="30"/>
+                                <state key="normal" title="Fechar"/>
+                                <connections>
+                                    <action selector="FecharWebView:" destination="pKq-Rl-opa" eventType="touchUpInside" id="JB3-FS-eim"/>
+                                    <action selector="close:" destination="pKq-Rl-opa" eventType="touchUpInside" id="GXd-AT-W9T"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="XnN-g6-SiS" firstAttribute="trailing" secondItem="DXr-7n-BUx" secondAttribute="trailing" id="El3-dX-fFe"/>
+                            <constraint firstItem="Ns7-It-Bx5" firstAttribute="centerY" secondItem="DXr-7n-BUx" secondAttribute="centerY" id="K6M-7S-kl9"/>
                             <constraint firstItem="DXr-7n-BUx" firstAttribute="leading" secondItem="XnN-g6-SiS" secondAttribute="leading" id="VQO-pX-MPc"/>
+                            <constraint firstItem="plI-wK-2uF" firstAttribute="leading" secondItem="XnN-g6-SiS" secondAttribute="leading" constant="16" id="WIK-7i-Bs3"/>
                             <constraint firstItem="l2k-s6-7oO" firstAttribute="trailing" secondItem="XnN-g6-SiS" secondAttribute="trailing" id="Yo2-3k-1Ax"/>
                             <constraint firstItem="l2k-s6-7oO" firstAttribute="top" secondItem="DXr-7n-BUx" secondAttribute="bottom" id="aYu-CN-oQS"/>
+                            <constraint firstItem="XnN-g6-SiS" firstAttribute="trailing" secondItem="plI-wK-2uF" secondAttribute="trailing" constant="242" id="b7J-Vp-1ZN"/>
                             <constraint firstItem="l2k-s6-7oO" firstAttribute="bottom" secondItem="XnN-g6-SiS" secondAttribute="bottom" id="dcX-qn-miP"/>
-                            <constraint firstItem="DXr-7n-BUx" firstAttribute="top" secondItem="XnN-g6-SiS" secondAttribute="top" id="sT6-Ce-v3l"/>
+                            <constraint firstItem="DXr-7n-BUx" firstAttribute="top" secondItem="plI-wK-2uF" secondAttribute="bottom" id="l4M-mt-AuD"/>
                             <constraint firstItem="l2k-s6-7oO" firstAttribute="leading" secondItem="XnN-g6-SiS" secondAttribute="leading" id="xNL-sk-s1c"/>
+                            <constraint firstItem="plI-wK-2uF" firstAttribute="top" secondItem="XnN-g6-SiS" secondAttribute="top" id="xfa-U2-Wox"/>
+                            <constraint firstItem="Ns7-It-Bx5" firstAttribute="centerX" secondItem="DXr-7n-BUx" secondAttribute="centerX" id="yjU-uq-EfO"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="XnN-g6-SiS"/>
                     </view>
+                    <connections>
+                        <outlet property="loading" destination="Ns7-It-Bx5" id="gbx-iU-rkF"/>
+                        <outlet property="webView" destination="DXr-7n-BUx" id="0G7-Jw-rh0"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hsV-mQ-tsj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
